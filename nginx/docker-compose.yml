@@ -1,0 +1,18 @@
+version: '3.8'
+services:
+  es-nginx:
+    container_name: es-nginx
+    image: nginx:1.21.3
+    networks:
+      - elasticsearch-network
+    ports:
+      - "9200:9200"
+      - "9300:9300"
+    volumes:
+      - ./conf.d:/etc/nginx/conf.d
+    
+    
+networks:
+  elasticsearch-network:
+    name: elasticsearch-network
+    driver: bridge

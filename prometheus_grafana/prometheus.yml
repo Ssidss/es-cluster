@@ -1,0 +1,7 @@
+global:
+  scrape_interval: 15s  # 每 10 秒抓取數據
+
+scrape_configs:
+  - job_name: "elasticsearch"
+    static_configs:
+      - targets: ["elasticsearch-exporter:9114"]  # 監控 Elasticsearch Exporter

@@ -1,0 +1,34 @@
+version: '3.8'
+services:
+  elasticsearch-node4:
+    container_name: elasticsearch-node4
+    image: docker.elastic.co/elasticsearch/elasticsearch:8.17.0
+    networks:
+      - elasticsearch-network
+    environment:
+      - node.name=es-node4 # 這個node的名稱
+      - cluster.name=es-cluster # 這個cluster的名稱
+      - node.roles=data,ingest # 這個node的角色
+      # discovery.seed_hosts: 這個cluster可能成為master的 node
+      - discovery.seed_hosts=elasticsearch-node1, elasticsearch-node3
+      # cluster.initial_master_nodes: 這個cluster的master node
+      # 似乎說只有初次啟動的時候會生效 之後cluster 會自己找出
+      - cluster.initial_master_nodes=es-node1
+      - xpack.security.enabled=false
+      # 似乎跟swap 有關 會引響效能
+      - bootstrap.memory_lock=true
+      - "ES_JAVA_OPTS=-Xms512m -Xmx512m"
+      - network.host=_site_
+
+    ulimits:
+      memlock:
+        soft: -1
+        hard: -1
+    ports:
+      - "9204:9200"
+      - "9304:9300"
+
+networks:
+  elasticsearch-network:
+    name: elasticsearch-network
+    driver: bridge
