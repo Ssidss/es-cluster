@@ -36,7 +36,7 @@ def set_index_template():
         "priority": 100,  # 設定優先級，數字越大越優先
         "template": {  # settings 和 mappings 要包在 template 裡
             "settings": {
-                "number_of_shards": 1, # 設定分片數
+                "number_of_shards": 2, # 設定分片數
                 "number_of_replicas": 1
             },
             "mappings": {
