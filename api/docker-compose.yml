@@ -1,0 +1,16 @@
+version: "3.8"
+networks:
+  elasticsearch-network:
+    name: elasticsearch-network
+    driver: bridge
+services:
+  fastapi-app:
+    container_name: fastapi-app
+    networks:
+      - elasticsearch-network
+    build: .
+    ports:
+      - "8000:8000"
+    volumes:
+      - .:/app
+    restart: always
