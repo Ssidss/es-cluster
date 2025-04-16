@@ -10,10 +10,10 @@ services:
       - cluster.name=es-cluster # 這個cluster的名稱
       - node.roles=master,ingest # 這個node的角色
       # discovery.seed_hosts: 這個cluster的所有node
-      - discovery.seed_hosts=elasticsearch-node1, elasticsearch-node1, elasticsearch-node3,elasticsearch-node4
+      - discovery.seed_hosts=elasticsearch-node1,elasticsearch-node2,elasticsearch-node3,elasticsearch-node4
       # cluster.initial_master_nodes: 這個cluster的master node
       # 似乎說只有初次啟動的時候會生效 之後cluster 會自己找出
-      - cluster.initial_master_nodes=es-node1,es-node2,es-node3,es-node4
+      - cluster.initial_master_nodes=es-node1,es-node2
       - xpack.security.enabled=false
       # 似乎跟swap 有關 會引響效能
       - bootstrap.memory_lock=true
@@ -38,7 +38,7 @@ services:
       - cluster.name=es-cluster
       - node.roles=master,data
       - discovery.seed_hosts=elasticsearch-node1,elasticsearch-node2,elasticsearch-node3,elasticsearch-node4
-      - cluster.initial_master_nodes=es-node1,es-node2,es-node3,es-node4
+      - cluster.initial_master_nodes=es-node1,es-node2
       - xpack.security.enabled=false
       - bootstrap.memory_lock=true
       - "ES_JAVA_OPTS=-Xms1g -Xmx1g"
@@ -61,7 +61,7 @@ services:
       - cluster.name=es-cluster
       - node.roles=data
       - discovery.seed_hosts=elasticsearch-node1,elasticsearch-node2,elasticsearch-node3,elasticsearch-node4
-      - cluster.initial_master_nodes=es-node1,es-node2,es-node3,es-node4
+      - cluster.initial_master_nodes=es-node1,es-node2
       - xpack.security.enabled=false
       - bootstrap.memory_lock=true
       - "ES_JAVA_OPTS=-Xms1g -Xmx1g"
@@ -82,9 +82,9 @@ services:
     environment:
       - node.name=es-node4
       - cluster.name=es-cluster
-      - node.roles=data,ingest
+      - node.roles=data
       - discovery.seed_hosts=elasticsearch-node1,elasticsearch-node2,elasticsearch-node3,elasticsearch-node4
-      - cluster.initial_master_nodes=es-node1,es-node2,es-node3,es-node4
+      - cluster.initial_master_nodes=es-node1,es-node2
       - xpack.security.enabled=false
       - bootstrap.memory_lock=true
       - "ES_JAVA_OPTS=-Xms1g -Xmx1g"
@@ -94,8 +94,8 @@ services:
         soft: -1
         hard: -1
     ports:
-      - "9203:9200"
-      - "9303:9300"
+      - "9204:9200"
+      - "9304:9300"
 
 networks:
   elasticsearch-network:
